@@ -1,0 +1,1495 @@
+\documentclass{article}
+
+\usepackage[utf8]{inputenc}
+\usepackage[margin=1.5in]{geometry}
+\usepackage{amsmath}
+\usepackage[english]{babel}
+\usepackage{amsthm}
+\usepackage{xcolor}
+\usepackage{amsfonts}
+\usepackage{graphicx}
+\usepackage{mathrsfs}
+\usepackage{hyperref}
+\graphicspath{ {./images/} }
+\usepackage{fancyhdr}
+\usepackage{appendix}
+
+
+\newenvironment{rcases}
+  {\left.\begin{aligned}}
+  {\end{aligned}\right\rbrace}
+
+\theoremstyle{definition}
+\newtheorem{definition}{Definition}[subsection]
+\newtheorem{theorem}{Theorem}[subsection]
+\newtheorem{example}{Example}[subsection]
+
+\pagestyle{fancy}
+\fancyhf{}
+\rhead{MATH 3325}
+\lhead{\thepage}
+\rfoot{Page \thepage}
+
+
+
+\title{MATH 3325}
+\author{Jay Melendez}
+\date{August 2021}
+
+\begin{document}
+
+\maketitle
+
+\tableofcontents
+
+\newpage
+
+\topskip0pt
+\vspace*{\fill}
+\begin{center}
+    This is a compilation of notes (a lot of them verbatim or at least paraphrased) taken from:
+    
+    \smallskip
+    
+    \begin{itemize}
+        \item A Transition to Advanced Mathematics; Smith, Eggen, Andre
+        \item Book of Proof; Hammack
+         \item Professor Alan Haynes Math 3338 - Probability Course Handouts
+        \item Statistical Inference; Casella, Berger
+    \end{itemize}
+    \end{center}
+    \underline{Most} of this is the work of smart people, not me. The things that are wrong are probably from me.
+\vspace*{\fill}
+
+\newpage
+
+
+\section{Logic}
+\bigskip
+\subsection{Propositions and Connectives}
+
+\bigskip
+
+A \textbf{proposition} is a sentence that has exactly one truth value:
+\textbf{true}, denoted by \textbf{T}, or \textbf{false}, denoted by \textbf{F}.
+
+
+The \textbf{negation} of a proposition $P$, denoted $ \neg P$, is the proposition "not $P$." The proposition $ \neg P$ is true when $P$ is false.
+
+\smallskip
+
+\begin{definition}
+Given propositions $P$ and $Q$, the \textbf{conjunction} of $P$ and $Q$, denoted $P \land Q$, is the proposition "$P$ and $Q$." $P \land Q$ is true exactly when \emph{both} $P$ and $Q$ are true.
+
+\smallskip
+
+\begin{displaymath}
+\begin{array}{|c | c|c|}
+% |c c|c| means that there are three columns in the table and
+% a vertical bar ’|’ will be printed on the left and right borders,
+% and between the second and the third columns.
+% The letter ’c’ means the value will be centered within the column,
+% letter ’l’, left-aligned, and ’r’, right-aligned.
+\hline
+\textbf{P} & \textbf{Q} & \textbf{P} \land \textbf{Q}\\ % Use & to separate the columns
+\hline % Put a horizontal line between the table header and the rest.
+T & T & T\\
+T & F & F\\
+F & T & F\\
+F & F & F\\
+\hline
+\end{array}
+\end{displaymath}
+\end{definition}
+
+\smallskip
+
+\begin{definition}
+Given propositions $P$ and $Q$, the \textbf{disjunction} of $P$ and $Q$, denoted $P \lor Q$, is the proposition "$P$ or $Q$." $P \lor Q$ is true exactly when \emph{at least one of} $P$ or $Q$ is true.
+
+\begin{displaymath}
+\begin{array}{|c | c|c|}
+\hline
+\textbf{P} & \textbf{Q} & \textbf{P} \lor \textbf{Q}\\ % Use & to separate the columns
+\hline % Put a horizontal line between the table header and the rest.
+T & T & T\\
+T & F & T\\
+F & T & T\\
+F & F & F\\
+\hline
+\end{array}
+\end{displaymath}
+\end{definition}
+
+\smallskip
+
+\begin{definition}
+A \textbf{tautology} is a propositional form that is true for \emph{every} assignment of truth values to its components.
+
+\begin{displaymath}
+\begin{array}{|c|c|c|c|c|c|c|}
+\hline
+\textbf{P} & \textbf{Q} & \textbf{P} \lor \textbf{Q} & \neg \textbf{P} & \neg \textbf{Q} & \neg \textbf{P} \land \neg \textbf{Q} & \textbf{(P} \lor \textbf{Q)} \lor \textbf{(}\neg \textbf{P} \land \neg \textbf{Q)}\\ % Use & to separate the columns
+\hline % Put a horizontal line between the table header and the rest.
+T & T & T & F & F & F & T\\
+F & T & T & T & F & F & T\\
+T & F & T & F & T & F & T\\
+F & F & F & T & T & T & T\\
+\hline
+\end{array}
+\end{displaymath}
+\end{definition}
+
+\bigskip
+
+\noindent Two propositional forms are \textbf{equivalent} if and only if they have the same truth tables.
+
+\begin{displaymath}
+\begin{array}{|c|c|c|}
+\hline
+\textbf{P} & \neg \textbf{P} & \neg \textbf{(} \neg \textbf{P)}\\
+\hline
+T & F & T \\
+F & T & F \\
+\hline
+\end{array}
+\end{displaymath}
+\newline
+\emph{Note} that $P$ s equivalent to $\neg (\neg P)$.
+
+
+\smallskip
+
+\begin{theorem}
+For propositions $P$, $Q$, and $R$, the following are equivalent:
+\begin{displaymath}
+\begin{array}{l c l l}
+P   &\equiv & \neg P  &\textbf{Double Negation Law}\\
+P \lor Q &\equiv &Q \lor P    &\textbf{Commutative Laws}\\
+P \land Q &\equiv &Q \land P    &\textbf{Commutative Laws}\\
+P \lor (Q \lor R) &\equiv &(P \lor Q) \lor R  &\textbf{Associative Laws}\\
+P \land (Q \land R) &\equiv &(P \land Q) \lor R  &\textbf{Associative Laws}\\
+P \land (Q \lor R) &\equiv &(P \land Q) \lor (P \land R) &\textbf{Distributive Laws}\\
+P \lor (Q \land R) &\equiv &(P \lor Q) \land (P \lor R) &\textbf{Distributive Laws}\\
+\neg (P \land Q) &\equiv & \neg P \lor \neg Q &\textbf{De Morgan's Laws}\\
+\neg (P \lor Q) &\equiv & \neg P \land \neg Q &\textbf{De Morgan's Laws}
+
+\end{array}
+\end{displaymath}
+\end{theorem}
+
+\bigskip
+
+\subsection{Conditionals and Biconditionals}
+
+\bigskip
+
+\begin{definition}
+For propositions $P$ and $Q$, the \textbf{conditional sentence} $P \Rightarrow Q$ is the proposition "If $P$, then $Q$." Proposition $P$ is called the \textbf{antecedent} and $Q$ is called the \textbf{consequent}. The conditional sentence $P \Rightarrow Q$ is true \emph{if and only if} $P$ is false or $Q$ is true.
+\newline
+Conversely, $P \Rightarrow Q$ is false \emph{only} when $P$ is true and $Q$ is false.
+
+\begin{displaymath}
+\begin{array}{|c | c|c|}
+\hline
+\textbf{P} & \textbf{Q} & \textbf{P} \Rightarrow \textbf{Q}\\ % Use & to separate the columns
+\hline % Put a horizontal line between the table header and the rest.
+T & T & T\\
+T & F & T\\
+F & T & F\\
+F & F & T\\
+\hline
+\end{array}
+\end{displaymath}
+\newline
+\textbf{Note:} By the rule of \textbf{Material Implication}, $P \Rightarrow Q$ is equivalent to $\neg P \lor Q$.
+\end{definition}
+
+\smallskip
+
+\begin{theorem}
+Let $P$ and $Q$ be propositions.
+\begin{center}
+\begin{tabular}{l|l}
+The \textbf{converse} of $P \Rightarrow Q$ is $Q \Rightarrow P$ & \textcolor{red}{Not} Equivalent to $P \Rightarrow Q$\\
+\hline
+The \textbf{contrapositive} is ($\neg Q$) $\Rightarrow$ ($\neg P$) & \textcolor{blue}{Equivalent} to $P \Rightarrow Q$.
+\end{tabular}
+\end{center}
+\end{theorem}
+
+\smallskip
+
+\begin{definition}
+For propositions $P$ and $Q$, the \textbf{biconditional sentence} $P \Leftrightarrow Q$ is the proposition "$P$ \emph{if and only if} $Q$." $P \Leftrightarrow Q$ is true exactly when $P$ and $Q$ have the \emph{same} truth values. We also write $P$ iff $Q$ to abbreviate "$P$ if and only if $Q$.
+
+\begin{displaymath}
+\begin{array}{|c | c|c|}
+\hline
+\textbf{P} & \textbf{Q} & \textbf{P} \Leftrightarrow \textbf{Q}\\ % Use & to separate the columns
+\hline % Put a horizontal line between the table header and the rest.
+T & T & T\\
+T & F & F\\
+F & T & F\\
+F & F & T\\
+\hline
+\end{array}
+\end{displaymath}
+\newline
+\textbf{Note:} $P \Leftrightarrow Q$ is equivalent to ($P \Rightarrow Q$) $\land$ ($Q \Rightarrow P$).
+\end{definition}
+
+\bigskip
+
+\begin{theorem}
+For propositions $P$, $Q$, and $R$,
+\begin{displaymath}
+\begin{array}{l c l }
+P \Rightarrow Q         &\equiv    &\neg P \lor Q\\
+\neg (P \Rightarrow Q)  &\equiv    &P \land \neg Q\\
+\neg (P \land Q)        &\equiv    &P \Rightarrow \neg Q\\
+                        &\equiv    &Q \Rightarrow \neg P\\
+P \Rightarrow (Q \Rightarrow R) &\equiv &(P \land Q) \Rightarrow R\\
+P \Rightarrow (Q \land R)       &\equiv &(P \Rightarrow Q) \land (P \Rightarrow R)\\
+(P \lor Q) \Rightarrow R        &\equiv &(P \Rightarrow R) \land (Q \Rightarrow R)\\
+P \Leftrightarrow Q             &\equiv &(P \Rightarrow Q) \land (Q \Rightarrow P).
+\end{array}
+\end{displaymath}
+\end{theorem}
+
+\bigskip
+
+\subsection{Quantifiers}
+
+\bigskip
+
+A sentence that contains variables (e.g., "$x \geq 3$") is considered an \textbf{open sentence} or \textbf{predicate} until its variables are assigned specific values. When $P$ is an open sentence with a variable $x$, the predicate is symbolized by $P(x)$.
+
+Before the \emph{truth} value can be determined, we must take into account \emph{where this predicate lives} in order to decide what objects are available to satisfy the predicate's conditions.
+
+\bigskip
+
+\begin{definition}
+The \textbf{Universe of Discourse} must be established. The universe determines what objects are available to use in order to satisfy the predicate's requirements.\\
+Number systems are often used to denote the universe, (these are familiar):
+\begin{center}
+\begin{tabular}{c l l}
+$\mathbb{N}$ &= $\{1,2,3,...\}$, & The set of \textbf{Natural Numbers}\\
+$\mathbb{Z}$ &= $\{...,-3,-2,-1,0,1,2,3,...\}$ & The set of \textbf{Integers}\\
+$\mathbb{Q}$ &= \{ $p/q$ $|$ $p, q \in \mathbb{Z} \}$ & The set of \textbf{Rational Numbers} \\
+$\mathbb{R}$ &= \{$x$ $|$ $x \in \mathbb{Q}$ $or$ $x$ $\in \mathbb{I} \}$ & The set of all \textbf{Real Numbers}\\
+$\mathbb{I}$ &= \{$x$ $|$ $x \in \mathbb{R}$ $and$ $x$ $\notin \mathbb{Q} \}$ & The set of all \textbf{Real Numbers}\\
+$\mathbb{C}$ &= \{$a+bi$ $|$ $a,b \in \mathbb{R} $ $and$ $i= \sqrt{-1} \}$ & The set of \textbf{Complex Numbers}
+\end{tabular}
+\end{center}
+\end{definition}
+
+\smallskip
+
+\begin{definition}
+For a predicate, $P(x)$, the sentence ($\exists x) P(x)$ is read "There \emph{exists} x such that $P(x)$" or- "For some x, $P(x)$." The sentence $(\exists x) P(x)$ is true if there is at least \emph{one} case that can be established where $x$ exists. The symbol $\exists$ is called the \textbf{Existential Quantifier.}
+\end{definition}
+
+\smallskip
+
+\begin{definition}
+For a predicate $P(x)$, the sentence ($\forall x) P(x)$ is read "For all $x$, $P(x)$ and is true iff $x$ is true for the \emph{entire} universe. The symbol $\forall$ is called the \textbf{Universal Quantifier}.
+\end{definition}
+
+\smallskip
+
+There are many ways to express a quantified sentence. Look for keywords such as: for all," "for every," "for each," "some," "at least one," "there exist(s)," etc. For example, someone who says "Polynomial functions are continuous" means that "All polynomial functions are continuous." Yet someone who says "Rational functions have vertical asymptotes" must mean: "Some rational functions have vertical asymptotes." 
+
+\newpage
+\noindent \textbf{Generally:}\\ A sentence of the form "All $P(x)$ are $Q(x)$" should be symbolized:
+\begin{center}
+    $(\forall x)[P(x) \Rightarrow Q(x)]$.\\
+\end{center}
+A sentence of the form "Some $P(x)$ are $Q(x)$" should be symbolized:
+\begin{center}
+$(\exists x)[P(x) \land Q(x)] $.
+\end{center}
+
+\noindent \textcolor{blue}{Examples.}
+\bigskip
+
+\noindent \emph{Sentence}: For every odd prime $x$ less than 10, $x^2+4$ is prime.\\
+
+\emph{Implications}: If $x$ is prime, and odd, and less than 10, then $x^2 +4$ is prime.\\
+
+\emph{Quantified}: $(\forall x)[[(x$ is prime) $\land$ ($x$ is odd) $\land$ $(x < 10)] \Rightarrow (x^2 +4$ is prime)].\\
+
+\bigskip
+
+\noindent \emph{Sentence}: Some real numbers have a multiplicative inverse.\\
+
+\emph{Implications}: There is an $x \in \mathbb{R}$ and $x$ has a multiplicative inverse. \emph{Note} that since $x$ has an inverse, this implies there exists another number, $y$, that is an inverse for x, therefore this predicate possesses a hidden quantifier.\\
+
+\emph{Quantified}: $(\exists x)[x \in \mathbb{R} \land (\exists y)(y \in \mathbb{R} \land xy = 1)].$\\
+
+\bigskip
+
+\noindent \emph{Sentence}: Some integers are even and some integers are odd.\\
+
+\emph{Implications}: The first quantifier will only extend as far as the word "even", so it would be preferable to show this as two separate variables, $x$ and $y$. \emph{Note}: There will need to be TWO quantifiers used, as one number cannot exist as both even and odd.\\
+
+\emph{Quantified}: $(\exists x)(x$ is even$) \land (\exists y)(y$ is odd). -or- $(\exists x)(x = 2k) \land (\exists y)(y = 2k+1).$\\
+
+\bigskip
+
+\noindent \emph{Sentence}: Every element of the set A has property $P$.\\
+
+\emph{Quantified}: $(\forall x \in A)P(x)$.\\
+
+\bigskip
+
+\noindent \emph{Sentence}: Some element in the set A has property $P$.\\
+
+\emph{Quantified}: $(\exists x \in A)P(x)$.\\
+
+\bigskip
+
+\begin{theorem}
+If $A(x)$ is an open sentence with variable $x$, then:
+\begin{center}
+    $\neg (\forall x)A(x) \equiv (\exists x) \neg A(x) $\\
+    $\neg (\exists x)A(x) \equiv (\forall x) \neg A(x) $
+\end{center}
+\end{theorem}
+
+\bigskip
+
+\begin{proof}
+To show $\neg (\forall x)A(x) \equiv (\exists x) \neg A(x)$:
+\smallskip
+
+\indent Let $U$ be \emph{any} universe.\\
+\indent The sentence $\neg (\forall x)(A(x)$ is true in $U$\\
+\indent \indent iff $(\forall x) A(x)$ is false in $U$\\
+\indent \indent iff the truth set of $A(x)$ is not in the universe\\
+\indent \indent iff the truth set of $\neg A(x)$ is nonempty\\
+\indent \indent iff $(\exists x) \neg A(x)$ is true in $U$.
+\end{proof}
+
+\bigskip
+
+\noindent \textcolor{blue}{Example.} For the universe of all real numbers, find a denial of "Every positive real number has a multiplicative inverse."\\
+\indent \emph{Note:} There is a hidden quantifier in this proposition. For $x$ to have a multiplicative inverse, there must be a $y$ such that $xy=1.$\\
+
+\noindent Symbolized:
+\begin{equation*}
+    \forall x[x>0 \Rightarrow (\exists y)(xy=1)]\\
+\end{equation*}
+\begin{align*}
+    & \text{Negation:}\\
+    & \mathbin{\textcolor{red}{\neg}} \forall x[x>0 \Rightarrow (\exists y)(xy=1)]\\
+    &\equiv \exists x \mathbin{\textcolor{red}{\neg}} [x>0\Rightarrow (\exists y)(xy=1)]\\
+    &\equiv \exists x \mathbin{\textcolor{red}{\neg}} [\mathbin{\textcolor{blue}{\neg}} (x>0) \mathbin{\textcolor{blue}{\lor}} (\exists y)(xy=1)] \indent \text{\textcolor{blue}{material implication}}\\
+     &\equiv \exists x [x>0 \land \mathbin{\textcolor{red}{\neg}} (\exists y)(xy=1)]\\
+     &\equiv \exists x [x>0 \land (\forall y) \mathbin{\textcolor{red}{\neg}} (xy=1)]\\
+     &\equiv \exists x [x>0 \land (\forall y) (xy \neq 1)]
+\end{align*}
+
+This last sentence may be translated as "There is a positive real number that has no multiplicative inverse."
+
+\bigskip
+
+\subsection{Rules of Inference}
+
+Suppose we know that a conditional statement $P \Rightarrow Q$ is true. This tells us that whenever $P$ is true, $Q$ will also be true. By itself, $P \Rightarrow Q$ tells us nothing, because $P$ could be false and $Q$ true or false and it would still be yield the same truth value. However, if we happen to know that $P$ is true, \emph{then} $Q$ \emph{must} be true. This is called a \textbf{logical inference}. From two true statements we infer that a third statement is true. In essence, statements $P \Rightarrow Q$ and $P$ are "added together" to get $Q$. We indicate this by stacking $P \Rightarrow Q$ and $P$ one atop the other with a line separating them from $Q$. The intended meaning is that $P \Rightarrow Q$ combined with $P$ produces $Q$.\\
+
+\smallskip
+
+\noindent \textbf{Modus Ponens}
+\begin{center}
+\begin{tabular}{lc}
+     $P \Rightarrow Q$  \\
+     $P$ \\ \hline
+     $Q$
+\end{tabular}
+\end{center}
+
+\newpage %this is just to get modus tollens on a diff page
+
+\noindent \textbf{Modus Tollens}
+\begin{center}
+\begin{tabular}{l}
+     $P \Rightarrow Q$  \\
+     $\neg Q$ \\ \hline
+     $ \neg P$
+\end{tabular}
+\end{center}
+
+\smallskip
+
+\noindent \textbf{Elimination}
+\begin{center}
+\begin{tabular}{l}
+     $P \lor Q$  \\
+     $\neg P$ \\ \hline
+     $ Q$
+\end{tabular}
+\end{center}
+
+\bigskip
+
+\textbf{Note:} Moving on to proofs, you will rarely be using logical symbols such as $\land, \lor, \exists,$ or $\forall.$ These just form the basis (or inner-workings) of mathematical proofs.
+
+\newpage
+
+\section{Basic Proof Methods}
+
+\bigskip
+
+\subsection{General Definitions / Parts of Mathematical Proofs}
+
+\smallskip
+
+A \textbf{theorem} is a mathematical statement that is true and can (and has been) verified as true.\\\\
+A \textbf{proof} of a theorem is a written verification that shows that the theorem is definitely and unequivocally true.\\\\
+A \textbf{definition} is an exact, unambiguous explanation of the meaning of a mathematical word or phrase.\\\\
+An \textbf{axiom} or \emph{axioms} is an initial set of statements that are assumed to be true.\\\\
+A \textbf{proposition} is a statement that is true but not as significant as a theorem.\\\\
+A \textbf{lemma} is a theorem whose main purpose is to help prove another theorem.\\\\
+A \textbf{corollary} is a result that is an immediate consequence of a theorem or proposition.\\
+
+
+
+\bigskip
+
+\subsection{Mathematical Definitions for Proofs (Set 1)}
+
+\bigskip
+
+\begin{definition}
+An integer $n$ is \textbf{even} if $n=2k$ for some integer $k \in \mathbb{Z}.$ 
+\end{definition}
+
+\begin{definition}
+An integer $n$ is \textbf{odd} if $n=2k+1$ for some integer $k \in \mathbb{Z}.$ 
+\end{definition}
+
+\begin{definition}
+Two integers have the \textbf{same parity} if they are both even or they are both odd. Otherwise they have \textbf{opposite parity.} 
+\end{definition}
+
+\begin{definition}
+Suppose $a$ and $b$ are integers. We say that $a$ \textbf{divides} $b$, written $a|b$, if $b=ac$ for some $c \in \mathbb{Z}.$ In this case we also say that $a$ is a \textbf{divisor} of $b$, and that $b$ is a \textbf{multiple} of $a$.
+\end{definition}
+
+\begin{definition}
+A number $n \in \mathbb{N}$ is \textbf{prime} if it has exactly two positive divisors, $1$ and $n$. If $n$ has more than two positive divisors, it is called \textbf{composite}. (Thus $n$ is composite if and only if $n=ab$ for $1<a,b<n.$) \textbf{Note:} This definition implies 1 is neither prime nor composite.
+\end{definition}
+
+\begin{definition}
+The \textbf{greatest common divisor} of integers $a$ and $b$, denoted $gcd(a,b),$ is the largest integer that divides both $a$ and $b$. \emph{Note:} $gcd(0,n)=n$.
+
+The \textbf{least common multiple} of non=zero integers $a$ and $b$, denoted $lem(a,b),$ is the smalled integer in $\mathbb{N}$ that is a multiple of both $a$ and $b$.
+\end{definition}
+
+\begin{definition}
+The \textbf{Division Algorithm}: Given integers $a$ and $b$ with $b>0$, there exist unique integers $q$ and $r$ for which $a=qb+r$ and $0 \leq r < b.$
+\end{definition}
+
+\newpage %just to keep definition from cutting off the page
+
+\begin{definition}
+Definitions of Number Systems:
+\begin{center}
+\begin{tabular}{c l l}
+$\mathbb{N}$ &= $\{1,2,3,...\}$, & The set of \textbf{Natural Numbers}\\
+$\mathbb{Z}$ &= $\{...,-3,-2,-1,0,1,2,3,...\}$ & The set of \textbf{Integers}\\
+$\mathbb{Q}$ &= \{ $p/q$ $|$ $p, q \in \mathbb{Z} \}$ & The set of \textbf{Rational Numbers} \\
+$\mathbb{R}$ &= \{$x$ $|$ $x \in \mathbb{Q}$ $or$ $x$ $\in \mathbb{I} \}$ & The set of all \textbf{Real Numbers}\\
+$\mathbb{I}$ &= \{$x$ $|$ $x \in \mathbb{R}$ $and$ $x$ $\notin \mathbb{Q} \}$ & The set of all \textbf{Real Numbers}\\
+$\mathbb{C}$ &= \{$a+bi$ $|$ $a,b \in \mathbb{R} $ $and$ $i= \sqrt{-1} \}$ & The set of \textbf{Complex Numbers}
+\end{tabular}
+\end{center}
+\end{definition}
+
+
+
+\subsection{Some Properties of Number Systems (Set 1)}
+
+\bigskip
+
+\subsubsection{The Natural Numbers}
+
+\smallskip
+
+1. \emph{Successor properties}\\
+\indent \indent $1$ is a natural number.\\
+\indent \indent Every natural number $x$ has a unique successor $x+1.$ \\
+\indent \indent 1 is not the successor of any natural number.\\
+
+\noindent 2. \emph{Closure properties}\\
+\indent \indent The sum of two natural numbers is a natural number.\\
+\indent \indent The difference of two natural numbers is a natural number.\\
+\indent \indent The product of two natural numbers is a natural number.\\
+
+\noindent 3. \emph{Associativity properties}\\
+\indent \indent For all $x,y,z \in \mathbb{N}, x+(y+z)=(x+y)+z.$\\
+\indent \indent For all $x,y,z \in \mathbb{N}, x(yz)=(xy)z.$\\
+
+\noindent 4. \emph{Commutativity properties}\\
+\indent \indent For all $x,y \in \mathbb{N}, x+y=y+x.$\\
+\indent \indent For all $x,y \in \mathbb{N}, xy=yx.$\\
+
+\noindent 5. \emph{Disributivity properties}\\
+\indent \indent For all $x,y,z \in \mathbb{N}, x(y+z)=xy+xz.$\\
+\indent \indent For all $x,y,z \in \mathbb{N}, (y+z)x=yx+zx.$\\
+
+\noindent 6. \emph{Cancellation properties}\\
+\indent \indent For all $x,y,z \in \mathbb{N}, x+z=y+z,$ then $x=y.$\\
+\indent \indent For all $x,y,z \in \mathbb{N}, xz=yz,$ then $x=y.$\\
+
+\begin{theorem}
+\textbf{The Fundamental Theorem of Arithmetic:}\\
+Every natural number larger than 1 is prime or can be expressed uniquely as a product of primes. If we list the prime factors in increasing order, then there is only one prime factorization: the primes and their exponents are uniquely determined.
+\end{theorem}
+
+\bigskip
+
+\subsubsection{The Integers}
+
+\smallskip
+
+\noindent 1. \emph{Closure properties}\\
+\indent \indent The sum of two integers is an integer.\\
+\indent \indent The difference of two integers is an integer.\\
+\indent \indent The product of two integers is an integer.\\
+
+\noindent 2. \emph{Associativity properties}\\
+\indent \indent For all $x,y,z \in \mathbb{Z}, x+(y+z)=(x+y)+z.$\\
+\indent \indent For all $x,y,z \in \mathbb{Z}, x(yz)=(xy)z.$\\
+
+\noindent 3. \emph{Commutativity properties}\\
+\indent \indent For all $x,y \in \mathbb{Z}, x+y=y+x.$\\
+\indent \indent For all $x,y \in \mathbb{Z}, xy=yx.$\\
+
+\noindent 4. \emph{Disributivity properties}\\
+\indent \indent For all $x,y,z \in \mathbb{Z}, x(y+z)=xy+xz.$\\
+\indent \indent For all $x,y,z \in \mathbb{Z}, (y+z)x=yx+zx.$\\
+
+\noindent 5. \emph{Cancellation properties}\\
+\indent \indent For all $x,y,z \in \mathbb{Z}, x+z=y+z,$ then $x=y.$\\
+\indent \indent For all $x,y,z \in \mathbb{Z}, if z \neq 0, xz=yz,$ then $x=y.$\\
+
+\noindent 6. \emph{For all} $x \in \mathbb{Z}$\\
+\indent \indent if $x<y$ and $z>0, xy < yz.$\\
+
+\subsection{Direct Proofs}
+
+\smallskip
+
+Proving statements of the form $P \Rightarrow Q$.\\
+\indent 1. Begin by assuming that $P$ is \emph{true.}\\
+\indent 2. Show this forces $Q$ to be \emph{true.}\\\\
+\textbf{Outline for Direct Proof--}\\
+\begin{center}
+    \textbf{Proposition:} If $P$, then $Q$.\\
+    \emph{Proof.} Suppose $P$.\\
+    $\vdots$ \\
+    Therefore $Q$.
+\end{center}
+
+\smallskip
+
+\noindent \textbf{Strategies for developing a direct proof of a conditional sentence:}
+
+\begin{enumerate}
+    \item Determine preceisely the hyptheses (if any) and the antecedent and consequent.
+    \item Replace (if necessary) the antecedentwith a more usable equivalent.
+    \item Replace (if necessary) the consequent by something equivalent and more readily shown.
+    \item Beginning with the assumption of the antecedent, develop a chain of statements that leads to the consequent. Each statement in the chain must be deducible from its predecessors or other known results (corrolary, lemma, etc.).\\
+\end{enumerate}
+
+\begin{example}
+Theorem: Let $x$ be an integer. Prove that if $x$ is odd, then $x+1$ is even.\\
+\noindent Proof: (Broken down)\\
+
+\noindent \emph{Note:} The theorem has the form $P \Rightarrow Q$, where $P$ is "$x$ is odd" and $Q$ is "x+1 is even."\\
+
+\begin{tabular}{lp{7cm}}
+ Let $x$ be an integer.    & \textcolor{blue}{Assume this hypothesis since its given in the statement.}  \\
+ Suppose $x$ is odd.    & \textcolor{blue}{Assume the antecedent $P$ is true.} \\
+From the definition of odd, &\textcolor{blue}{Goal is to derive the consequent $Q$ as our last step.}\\
+$x=2k+1$ for some integer $k$. &\textcolor{blue}{This deduction is the replacement of $P$ by an equivalent statement-the definition of "odd."} \\
+Then, $x+1 = (2k+1)+1$ &\textcolor{blue}{Replacement using an algebraic property of $\mathbb{N}$.}\\
+\indent for some integer $k$. \\
+Since $(2k+1)+1=2k+2$ &\textcolor{blue}{Algebraic equivalent}\\
+\indent $=2(k+1)$, \\
+$x+1$ is the product of 2 and an integer. &\textcolor{blue}{Algebraic equivalent}\\
+Thus $x+1$ is even. &\textcolor{blue}{We have deduced $Q$.}\\
+Therefore, If $x$ is an odd integer, \\
+then $x+1$ is even. &\textcolor{blue}{We conclude that $P \Rightarrow Q$.}
+\end{tabular}
+
+\smallskip
+
+\begin{proof}
+Let $x$ be an integer. Suppose $x$ is odd. From the definition of odd, $x=2k+1$ for some integer $k$. Then, $x+1 = (2k+1)+1$ for some integer $k$. Since $(2k+1)+1=2k+2$ $=2(k+1)$, $x+1$ is the product of 2 and an integer. Thus $x+1$ is even. Therefore, If $x$ is an odd integer, then $x+1$ is even.
+\end{proof}
+
+\end{example}
+
+\smallskip
+
+\begin{example}
+Theorem: Let $a,b,$ and $c$ are integers. Prove that if $a$ divides $b$ and $b$ divides $c$, then $a$ divides $c$.\\
+Proof: (Broken down)
+
+\begin{tabular}{lp{7cm}}
+Let $a, b,$ and $c$ be integers. & \textcolor{blue}{Assume the hypothesis is true.}  \\
+Suppose $a$ divides $b$ and $b$ divides $c$. & \textcolor{blue}{Antecedent is compound statement $a|b \land b|c$}\\
+Then $b=ak$ for some integer $k$, & \textcolor{blue}{Replace assumptions by equivalents}\\
+\indent and $c=bm$ for some integer $m$. & \textcolor{blue}{Don't assume $k$ and $m$ are same integer}\\
+Therefore, & \\
+$c = bm = (ak)m = a(km)$ & \textcolor{blue}{To show that $a|c$, write $c$ as a multiple of $a$}\\
+Then $c$ is a multiple of $a$. & \textcolor{blue}{If $k$ and $m$ are integers, then $km$ is an integer.}\\
+Therefore, if $a|b$ and $b|c$, then $a|c$. & \textcolor{blue}{Write the operations out, I'm just using a|c to save space.}
+\end{tabular}
+
+\begin{proof}
+Let $a,b,$ and $c$ be integers. Suppose $a$ divides $b$ and $b$ divides $c$. Then $b=ak$ for some integer $k$ and $c=bm$ for some integer $m$. Therefore, $c = bm = (ak)m = a(km),$ where $km$ is an integer. Then $c$ is a multiple of $a$. Therefore, if $a$ divides $b$ and $b$ divides $c$, then $a$ divides $c$.
+\end{proof}
+\end{example}
+
+\begin{example}
+Theorem: Suppose $a, b,$ and $c$ are integers. Prove that if $a$ divides $b$ and $a$ divides $c$, then $a$ divides $b-c$.\\
+Proof (Broken down):
+
+\begin{tabular}{lp{7cm}}
+Suppose $a,b,$ and $c$ are integers. &  \\
+Suppose $a$ divides $b$ and $a$ divides $c$. & \\
+Then $b=an$ for some integer $n$ & \textcolor{blue}{Use definition of \emph{divides}} \\
+and $c=am$ for some integer $m.$. &\\
+Thus, & \\
+$b-c = an-am = a(n-m).$ & \\
+Since $n-m$ is an integer, & \textcolor{blue}{Using the fact that the difference of two}\\
+$a$ divides $b-c$. & \textcolor{blue}{integers is an integer}\\
+\end{tabular}
+
+\begin{proof}
+Suppose $a,b,$ and $c$ are integers. Suppose $a$ divides $b$ and $a$ divides $c$. Then $b=an$ for some integer $n$. Thus,
+$b-c = an-am = a(n-m).$ Since $n-m$ is an integer, $a$ divides $b-c$.
+\end{proof}
+\end{example}
+
+\section{Set Theory}
+
+\bigskip
+
+\subsection{Basic Concepts of Set Theory}
+
+\bigskip
+
+\begin{definition}
+A \textbf{set} is simply a \emph{collection} of things called \textbf{elements}.
+\end{definition} 
+
+\noindent Two sets are \textbf{equal} if and only if they contain exactly the same elements. So $\{2,4,6,8\} = \{4,2,8,6\},$ but $\{2,4,6,8\} \neq \{2,4,6,7\}.$ Also:
+
+\begin{center}
+    $\{...,-3,-2,-1,0,1,2,3,...\} = \{0,-1,1,-2,2,-3,3,...\}$
+\end{center}
+
+\noindent We let uppercase letters stand for sets. For example, let $A = \{2,4,6,8\}.$ If some '\emph{thing}' is part of a set, we say "2 is an \emph{element} of $A,$ or $2 \in A.$ If some '\emph{thing}' is not part of a set, we say "5 is not an \emph{element} of $A,$ or $5 \notin A.$\\
+
+
+\begin{definition}
+If $X$ is a \emph{finite} set, (it does not have an infinite number of elements), then it's \textbf{cardinality} (or \textbf{size}) is the number of elements it has. The \textbf{cardinality} of $X$ is denoted by $|X|.$ So for $A = \{2,4,6,8\}$, $|A| = 4.$
+\end{definition}
+
+\bigskip
+
+\begin{definition}
+The \textbf{empty set} is the set \{\} that contains no elements. The empty set is represented as $\emptyset,$ or $\phi.$ \emph{Note:} $|\emptyset|=0$\\
+
+\textbf{\textcolor{red}{Caution:}} $\emptyset \neq \{\emptyset\}$. This is because the empty set, $\emptyset$ contains \emph{nothing}, and $\{\emptyset\}$ contains one thing; the empty set, $\emptyset.$
+\end{definition}
+
+\smallskip
+
+\noindent Let $F = \{\emptyset, \{\emptyset\}, \{\{\emptyset\}\}\}.$ This set contains three things:\\\\
+\indent (i) The empty set,\\
+\indent (ii) A set containing the empty set,\\
+\indent (iii) A set containing the set containing the empty set.\\
+
+\noindent Thus, $|F| = 3.$
+
+\bigskip
+
+\begin{definition}
+The \textbf{set-builder notation} is used to describe sets and their properties between braces. In general, a set $X$ written with set-builder notation has the syntax
+\begin{center}
+    $X = \{expression : rule\},$
+\end{center}
+where the elements of $X$ are understood to be all values of "expression" that are specified by the enclosed "rule."
+\end{definition}
+
+\noindent Example: Consider the infinite set of integers $E = \{-3,-2,-1,0,1,2,3,...\}.$ In set-builder notation this set is written as
+\begin{center}
+    $E = \{2n : n \in \mathbb{Z}\}.$
+\end{center}
+We read the first brace as \emph{"the set of all things of form,"} and the colon \emph{"such that."} So the expression $E = \{2n : n \in \mathbb{Z}\}$ reads \emph{E equals the set of all things of form $2n$, such that $n$ is an element of $\mathbb{Z}$.}
+
+\subsection{Set Operations}
+
+\bigskip
+
+\subsubsection{The Cartesian Product}
+\smallskip
+
+Given two sets $A$ and $B$, it is possible to "multiply" them to produce a new set, denoted as $A \times B$. This operation is called the \emph{Cartesian product}, or \emph{cross-product}.
+
+\begin{definition}
+An \textbf{ordered pair} is a list (x,y) of two elements $x$ and $y$, enclosed in parentheses and separated by a comma. Any list of two things enclosed by parentheses is an ordered pair.
+\end{definition}
+
+For ordered pairs, (as the name implies) order matters. Thus, $(4,2) \neq (2,4)$.
+
+\smallskip
+
+\begin{definition}
+The \textbf{Cartesian product} of two sets $A$ and $B$ is another set, denoted as $A \times B$ and defined as $A \times B = \{(a,b):a \in A, b \in B\}$
+\end{definition}
+
+So $A \times B$ is a set of ordered pairs of elements from $A$ and $B$.\\
+\newline
+Example 1: Let $A = \{k,l,m\}$ and $B = \{q,r\}$, then
+
+\begin{equation*}
+    A \times B = \{(k,q),(k,r),(l,q),(l,r),(m,q),(m,r)\}.
+\end{equation*}
+\newline
+Example 2: Let $A =\{0,1\}$ and $B= \{2,1\}$, then
+
+\begin{equation*}
+   \{0,1\} \times \{2,1\} = \{(0,2),(0,1),(1,2),(1,1)\}. 
+\end{equation*}
+\newline
+\noindent \textbf{Note on the cardinality of Cartesian products:} If $A$ and $B$ are finite sets, then 
+\begin{equation*}
+    |A \times B| = |A| * |B|
+\end{equation*}
+\newline
+\textbf{Examples of Cartesian products:}\\
+
+\noindent The set $\mathbb{R} \times \mathbb{R} = \{(x,y):x,y \in \mathbb{R}\}$ is the set of points on a Cartesian plane, as drawn in \textbf{Figure (a)} below.\\
+
+\noindent The set $\mathbb{R} \times \mathbb{N} = \{(x,y):x \in \mathbb{R}, y \in \mathbb{N}\}$ is the set of all the points on the plane whose second coordinate is a natural number. (\textbf{Figure (b)}).\\
+
+\noindent The set $\mathbb{N} \times \mathbb{N} = \{(x,y):x,y \in \mathbb{N}\}$ is the set of all points on the plane whose coordinates are both natural numbers. (\textbf{Figure (c)}).
+
+\includegraphics[width=\textwidth]{CartesianProducts.PNG}
+
+\noindent Cartesian products are also defined \emph{beyond} ordered pairs. An \textbf{ordered triple} is a list $(x,y,z)$. For example, the Cartesian product of the three sets $\mathbb{R}, \mathbb{N}$ and $\mathbb{Z}$ is $\mathbb{R} \times \mathbb{N} \times \mathbb{Z} = \{(x,y,z): x \in \mathbb{R}, y \in \mathbb{N}, z \in \mathbb{Z}\}$. \textbf{\emph{n}-tuples} can extend beyond ordered triples. In general,
+\begin{equation*}
+    A_1 \times A_2 \times \cdots \times A_n = \{(x_1, x_2, ..., x_n):x_1 \in A_i \text{ for each } i=1,2,...,n\}.
+\end{equation*}
+
+\smallskip
+
+\begin{theorem}
+Some relationships between the products of sets and other set operations:
+\begin{displaymath}
+\begin{array}{l}
+    A \times (B \cup C) = (A \times B) \cup (A \times C).\\
+    (A \times B) \cap (C \times D) = (A \cap C) \times (B \cap D)\\
+    A \times \emptyset = \emptyset.\\
+    \textcolor{red}{A \times B \neq B \times A}
+    
+\end{array}
+\end{displaymath}
+\end{theorem}
+
+\smallskip
+
+\begin{definition}
+For any set $A$ and positive integer $n$, the \textbf{Cartesian power} $A^n$ is
+\begin{equation*}
+    A^n = A \times A \times \cdots \times A = \{(x_1,x_2,...,x_n):x_1,x_2,...,x_n \in A\}.
+\end{equation*}
+\end{definition}
+
+\noindent $\mathbb{R}^2$ is the familiar $x,y$ Cartesian plane, $\mathbb{R}^3$ is the three-dimensional space.
+Referring back to the image of Cartesian products, we can see that if $\mathbb{R}^2$ is the plane, then $\mathbb{Z}^2$ is the is a grid of points on the plane. Likewise, as $\mathbb{R}^3$ is three-dimensional space, $\mathbb{Z}^3$ is a grid of points in space.
+
+\smallskip
+
+\subsubsection{Subsets}
+\smallskip
+
+\begin{definition}
+Suppose $A$ and $B$ are sets. If every element of  $A$ is also an element of $B$, then we say $A$ is a \textbf{subset} of $B$, and denote this as $A \subseteq B$. We write $A \not\subseteq B$ if $A$ is \emph{not} a subset of $B$. Thus $A \not\subseteq B$ means there is at least one element of $A$ that is \emph{not} an element of $B$.\\
+
+\textbf{Note:} If $B$ is \emph{ANY} set, then $\emptyset \subseteq B.$ Therefore, the empty set is a subset of all sets, that is, $\emptyset \subseteq B,$ for any set $B$.
+
+In addition, the set $B$ itself will also always be a subset of itself.
+\end{definition}
+
+\smallskip
+
+\begin{theorem}
+If a \emph{finite} set has $n$ elements, then it has $2^n$ subsets. So, if $|B|=n,$ then $B$ has $2^n$ subsets.
+\end{theorem}
+
+\noindent \textbf{Example:} Let $B = \{1,2,\{1,3\}\}$. $B$ has three elements: $1$, $2$, and $\{1,3\}.$ So $|B|=3$, therefore $n$ = 3, so $B$ will have $2^3$ subsets:
+\begin{equation*}
+    \{\}, \{1\}, \{2\}, \{\{1,3\}\}, \{1,2\}, \{1,\{1,3\}\}, \{2,\{1,3\}\}, \{1,2,\{1,3\}\}.
+\end{equation*}
+
+\smallskip
+
+Subsets generally arise naturally. Consider the unit circle $C=\{(x,y) \in \mathbb{R}^2: x^2 + y^2 = 1\}$. This is a subset $C \subseteq \mathbb{R}^2$. Likeways the graph of a function $y=f(x)$ is a set of points $G=\{(x,f(x)) : x \in \mathbb{R}$, and $G \subseteq \mathbb{R}.$
+
+\emph{Mathematics is filled with instances where it will be important to regard one set as a subset of another.}
+
+\smallskip
+
+\subsubsection{Power Sets}
+
+\smallskip
+
+Given a set, you can form a new set with the \emph{power set} operation.
+
+\begin{definition}
+If $A$ is a set, the \textbf{power set} of $A$ is \emph{another set}, denoted as $ \mathcal{P}(A) $ and defined to be all the subsets of $A$. In set-builder notation, $\mathcal{P}(A) = \{X:X \subseteq A\}$.\\
+
+\noindent \textbf{Note:} if $A$ is a finite set, then $|\mathcal{P}(A)| = 2^{|A|}$.
+\end{definition}
+
+\smallskip
+
+\subsubsection{The Union, Intersection, and Difference of Sets}
+
+\begin{definition}
+Suppose $A$ and $B$ are sets.\\
+\begin{tabular}{ll}
+    The \textbf{union} of $A$ and $B$ is the set & $A \cup B = \{x:x \in A$ or $x \in B$\}. \\
+    The \textbf{intersection} of $A$ and $B$ is the set & $A \cap B = \{x:x \in A$ and $x \in B$\}. \\
+    The \textbf{difference} of $A$ and $B$ is the set & $A-B = \{x:x \in A$ and $x \notin B$\}. \\
+\end{tabular}
+\end{definition}
+
+\begin{definition}
+Sets $A$ and $B$ are \textbf{disjoint} if and only if $A \cap B = \emptyset$. This implies that they share \emph{no common} elements.
+\end{definition}
+
+\begin{theorem}
+For all sets $A, B,$ and $C$,
+\begin{center}
+\begin{tabular}{l p{11cm}}
+    Statement    &  Reasoning \\
+\hline
+    $A \subseteq B \cup B$ & $A \cup B$ is inclusive, thus includes all elements in $A$ \emph{or} in $B$, so $A$ is naturally a subset of the union. \\
+    $A \cap B \subseteq A$ & By definition, the set $A \cap B,$ implies every element is in \emph{both} $A$ and $B$. Since every element will be in $A$, $A \cap B$ will be a subset of $A$. \\
+    $A \cap \emptyset = \emptyset$ & There are no elements in the empty set. There can be no elements in $A$ that will also be in $\emptyset$, yielding only the empty set.\\
+    $A \cup \emptyset = A$ & Since $A \cup \emptyset$ includes all elements in $A$ \emph{or} $\emptyset$, and the empty set contains no elements, this union can only produce all the elements that are in $A$.\\
+    $A \cap A = A$ & If the intersection of the same sets contains elements in the same set, we \emph{still only} have those elements in that set.\\
+    $A \cup A = A$ & If the union of the same sets contains elements in the same set, we \emph{still only} have those elements in that set.\\
+    $A - \emptyset = A$ & Since the empty set contains nothing, you are subtracting nothing from $A$, therefore yielding $A$.\\
+    $\emptyset - A = \emptyset$ & Since the empty set has no elements (\emph{nothing}), you cannot have less than no elements, so you still only have the empty set.\\
+
+\end{tabular}
+\end{center}
+\begin{tabular}{ll}
+\underline{General Laws for Sets}\\
+    $A \cup (B \cup C) = (A \cup B) \cup C$ & Associative Laws.\\
+    $A \cap B = B \cap A$ & Commutative Laws.\\
+    $A \cap (B \cup C) = (A \cap B) \cup (A \cap C)$ & Distributive Laws.\\
+\end{tabular}
+\end{theorem}
+
+\smallskip
+
+\emph{Note:} When we work with sets whose elements are sets, it is important to recognize the distinction between "is an element of" and "is a subset of." 
+
+\smallskip
+
+\subsubsection{Complement of a Set}
+
+\smallskip
+
+The \textbf{universe} of discourse is a collection of objects understood from the context or specified at the outset of a discussion and all objects under consideration \emph{must} belong to the universe.
+
+\begin{definition}
+Let $U$ be the universe and $A \subseteq U$. The \textbf{complement} of $A$ is the set $A^c = U - A$. The complement of $A$ can also be displayed as $\overline{A}$.
+\end{definition}
+
+\begin{theorem}
+Let $U$ be the universe, and let $A$ and $B$ be subsets of $U$. Then
+\begin{displaymath}
+\begin{array}{llll}
+(A^c)^c &= &A. \\
+A \cup A^c &= &U. \\
+A \cap A^c &= &\emptyset.\\
+A - B &= &A \cap B^c.\\
+A \subseteq B &\text{iff} &B^c \subseteq A^c.\\
+A \cap B = \emptyset &\text{iff} &A \subseteq B^c.\\
+(A \cup B)^c &= &A^c \cap B^c. &\text{De Morgan's Laws}.\\
+(A \cap B)^c &= &A^c \cup B^c. &\text{De Morgan's Laws}.\\
+\end{array}
+\end{displaymath}
+\end{theorem}
+
+\subsubsection{Indexed Sets}
+
+\smallskip
+
+A set of sets is called a \textbf{family} or \textbf{collection} of sets. We use script letters, $\mathscr{A,B,C,...}$ to denote families of sets. For example,
+\begin{displaymath}
+\mathscr{A} = \{\{1,2,3\},\{3,4,5\},\{3,6\},\{2,3,6,7,9,10\}\}
+\end{displaymath}
+is a family consisting of four sets. Notice that $5 \in \{3,4,5\}$ and $\{3,4,5\} \in \mathscr{A}$; \textbf{\emph{but}} $5 \notin \mathscr{A}$.\\
+
+\begin{definition}
+Let $\mathscr{A}$ be a family of sets. The \textbf{union over} $\mathscr{A}$ is
+\begin{displaymath}
+\bigcup\limits_{A \in \mathscr{A}}A = \{x: x\in A \text{ \textcolor{blue}{for some} } A \in \mathscr{A}\}.
+\end{displaymath}
+For any object $x$, this is compatible to
+\begin{displaymath}
+x \in \bigcup\limits_{A \in \mathscr{A}}A \text{ iff } (\textcolor{blue}{\exists} A \in \mathscr{A})(x \in A).
+\end{displaymath}
+\end{definition}
+
+To show that an object is in the union of a family, we must show the existence of at least one set in the family that contains the object.\\
+
+\begin{definition}
+Let $\mathscr{A}$ be a family of sets. The \textbf{intersection over} $\mathscr{A}$ is
+\begin{displaymath}
+\bigcap\limits_{A \in \mathscr{A}}A = \{x: x\in A \text{ \textcolor{orange}{for every} } A \in \mathscr{A}\}.
+\end{displaymath}
+For any object $x$, this is compatible to
+\begin{displaymath}
+x \in \bigcap\limits_{A \in \mathscr{A}}A \text{ iff } (\textcolor{orange}{\forall} A \in \mathscr{A})(x \in A).
+\end{displaymath}
+\end{definition}
+
+\smallskip
+
+\begin{theorem}
+For every set $B$ in a family $\mathscr{A}$ of sets,\\ 
+
+1. $\bigcap\limits_{A \in \mathscr{A}}A \subseteq B$.\\
+
+2. $B \subseteq \bigcup\limits_{A \in \mathscr{A}}A$.\\
+
+3. If a family $\mathscr{A}$ is nonempty, then $\bigcap\limits_{A \in \mathscr{A}}A \subseteq \bigcup\limits_{A \in \mathscr{A}}A$.
+\end{theorem}
+
+\begin{definition}
+Let $\Delta$ be a nonempty set such that for each $\alpha \in \Delta$ there is a corresponding set $A_\alpha$. The family $\{A_\alpha : \alpha \in \Delta\}$ is an \textbf{indexed family of sets.} The set $\Delta$ is called the \textbf{indexing set} and each $\alpha \in \Delta$ is an \textbf{index}.
+\begin{displaymath}
+\overbrace{\{A_\alpha : \underbrace{\alpha}_{\text{index}}\in \underbrace{\Delta}_{\text{indexing set}}\}}^{\text{indexed family of sets}}.
+\end{displaymath}
+\end{definition}
+
+An indexing family may be \emph{finite} or \emph{infinite}, the number of elements in the member sets do not have to be the same, and different indices do not need to correspond to different sets in the family.\\
+
+For a family $\mathscr{A} = \{A_\alpha : \alpha \in \Delta\}$, the notations for unions and intersection are:
+\begin{displaymath}
+\bigcup\limits_{\alpha \in \Delta}A = \bigcup\limits_{A \in \mathscr{A}}A \text{ and } x \in \bigcup\limits_{\alpha \in \Delta}A_\alpha \text{ iff } (\exists \alpha \in \Delta)(x \in A_\alpha).
+\end{displaymath}
+\begin{displaymath}
+\bigcap\limits_{\alpha \in \Delta}A = \bigcap\limits_{A \in \mathscr{A}}A \text{ and } x \in \bigcap\limits_{\alpha \in \Delta}A_\alpha \text{ iff } (\forall \alpha \in \Delta)(x \in A_\alpha).
+\end{displaymath}
+
+\smallskip
+
+\begin{theorem}
+Let $\mathscr{A} = \{A_\alpha : \alpha \in \Delta\}$ be an indexed collection of sets. Then\\
+
+1. $\bigcap\limits_{\alpha \in \Delta}A_\alpha \subseteq A_\beta$ for each $\beta \in \Delta$.\\
+
+2. $A_\beta \subseteq \bigcup\limits_{\alpha \in \Delta}A_\alpha$ for each $\beta \in \Delta$.\\
+
+3. $\left. \left( \bigcap\limits_{\alpha \in \Delta} A_\alpha \right)^c = \bigcup\limits_{\alpha \in \Delta} A_\alpha^c \right\}$ De Morgan's Laws\\ 
+
+4. $\left. \left( \bigcup\limits_{\alpha \in \Delta} A_\alpha \right)^c = \bigcap\limits_{\alpha \in \Delta} A_\alpha^c \right\}$ De Morgan's Laws \\
+
+\end{theorem}
+
+\begin{definition}
+The indexed family $\mathscr{A} = \{A_\alpha \in \Delta \}$ of sets is \textbf{pairwise disjoint} if and only if for all $\alpha$ and $\beta$ in $\Delta$, either $A_\alpha = A_\beta$ or $A_\alpha \cap A_\beta = \emptyset$. 
+\end{definition}
+
+\bigskip
+
+\subsection{Proofs for Set Theory}
+
+\smallskip
+
+\subsubsection{Proving A is a subset of B}
+
+\smallskip
+
+You can use a direct proof to show that $A$ is a subset of $B$.\\\\
+\textbf{Method of Proof:}\\
+Let $x$ be any object.\\
+Suppose $x \in A.$\\
+\indent \indent    \vdots\\
+Thus $x \in B$.\\
+Therefore $A \subseteq B$.\\
+
+\noindent Example: Let $A = \{2,3\}$ and $B = \{x \ \mathbb{R}: x^3 + 3x^2 - 4x - 12 = 0\}.$ Prove that $A \subseteq B$.\\
+
+\noindent Proof: (Broken down)\\
+\begin{tabular}{ll}
+Suppose $x \in A$. &\textcolor{blue}{Direct Proof: Suppose ..., then ...}\\
+Then $x=2$ or $x=-3$. &\textcolor{blue}{Check each element of $A$}\\
+For $x=2$, &\textcolor{blue}{Verifying first element}\\
+$(2)^3 + 3(2^2) - 4(2) -12 = 0$\\
+\indent $=8+12-8-12 = 0$.\\
+For $x=-3$, &\textcolor{blue}{Verifying second element}\\
+$(-3)^3 + 3(-3)^2 -4(-3) - 12 = 0 $\\
+\indent $=0$.\\
+In both cases, $x \in B$. &\textcolor{blue}{Proved every element in $A$ is also in $B$.}\\
+Thus, $A \subseteq B.$
+\end{tabular}
+
+\smallskip
+
+\begin{proof}
+Suppose $x \in A$. Then $x=2$ or $x=-3$. For $x=2$, $(2)^3 + 3(2^2) - 4(2) -12 = 0$ $= 8+12-8-12 = 0$. For $x=-3$, $(-3)^3 + 3(-3)^2 -4(-3) - 12 = 0 $ $=-27+27+12-12=0$. In both cases, $x \in B$. Thus, $A \subseteq B.$
+\end{proof}
+
+\section{Counting}
+
+Methods of counting are normally used in order to construct probability assignments on finite sample spaces.
+
+\begin{theorem}
+\textbf{The Fundamental Theorem of Counting}\\
+If a job consists of $k$ seperate tasks, the $i$th of which of which can be done in $n_i$ ways, $i = 1,\hdots , k,$ then the entire jobs can be done in $n_1 \times n_2 \times \cdots \times n_k$ ways.
+\end{theorem}
+
+\subsection{Types of Counting Problems}
+
+\smallskip
+
+\includegraphics[width=\textwidth]{CountingProblems.png}
+
+\smallskip
+
+\begin{definition}
+The \textbf{factorial} of a positive integer $n \in \mathbb{N}$ is
+\begin{equation*}
+    n! = n(n-1) \cdots 2 \cdot 1.
+\end{equation*}
+Furthermore, we define $0! = 1$.
+\end{definition}
+
+\smallskip
+
+\noindent Let $A = \{a,b,c\}$. Then, the \emph{permutations} of this set will be:\\
+\begin{displaymath}
+\begin{array}{cc}
+    \{a,b,c\} &\{c,a,b\}\\
+    \{b,a,c\} &\{a,c,b\}\\
+    \{c,b,a\} &\{b,a,c\}\\
+\end{array}
+\end{displaymath}
+
+The number of permutations possible will be equal to the factorial of cardinality $A$, $|A|!$.
+
+\smallskip
+
+\begin{definition}
+A \textbf{list} is an ordered sequence of objects. A list is denoted by an opening parenthesis, followed by the objects, separated by commas, followed by a closing parenthesis.\\
+Ex: $A = (a,b,c,d)$, where $a,b,c,d$ are entries (or elements) of the list.
+\end{definition}
+In a list, all elements have a definite order and can have repeated entries for the elements they contain. For example,
+\begin{equation*}
+    (a,b,c,d) \neq (d,c,b,a).
+\end{equation*}
+Also, $(a,a,b,c,c)$ is a perfectly acceptable list, in contrast to sets.
+
+Two lists are equal if and only if they have the same elements in exactly the same positions. Thus,
+\begin{equation*}
+    (0,0,0,0) \neq (0,0,0).
+\end{equation*}
+
+I'm defining a list to overcome technicalities/issues that may appear when working with repeating/ordered elements.
+
+\smallskip
+
+\subsubsection{Repeats Not Allowed, Order Matters}
+
+\smallskip
+
+When we say "\emph{Order Matters}", we are saying that order \emph{is} taken into consideration, implying that $(a,b) \neq (b,a)$. \textbf{Note:} We turn the set into a \emph{list} here since the sequence is now an \emph{ordered} pair of objects. Thus, we are looking for the number of \emph{permutations of the list} that can be achieved within the allotted number of options.
+
+\smallskip
+
+
+
+From the \emph{Fundamental Theorem of Counting}, the first number can be selected $n$ ways, the second $n-1$ ways, the third $n-2$ ways, and so on, until we get to the $k$th selection, for which we have $n-k+1$ choices. If the order in which these selections matter, then the total number of possibilities will be
+\begin{equation*}
+    \frac{n!}{(n-k)!}.
+\end{equation*}
+What we are doing here is defining the total number of permutations of $n$, and then dividing them by the difference between $n$ and $k$, the number of tasks.\\\\
+To achieve a faster method, let us show
+\begin{equation*}
+    \frac{n!}{(n-k)!}. = n(n-1)(n-2) \cdots (n-k+1).
+\end{equation*}
+So we have
+\begin{align*}
+    \frac{n!}{(n-k)!} &= \frac{n(n-1)(n-2) \cdots (2)(1)}{(n-k)(n-k-1)(n-k-2) \cdots (2)(1)} \\\\
+    &= \frac{n(n-1)(n-2) \cdots (2)(1)}{(n-k)(n-k-1)(n-k-2) \cdots (2)(1)} \cdot \frac{(n-k)(n-k+1)(n-k+2)\cdots (2)(1)}{(n-k)(n-k+1)(n-k+2)\cdots (2)(1)}\\\\
+    &= n(n-1)(n-2)\cdots (n-k+1).
+\end{align*}
+
+\smallskip
+
+\begin{definition}
+A \textbf{k-permutation} of an $n$-element set is a non-repetitive length-$k$ list made from $k$ elements of the set. Informally we think of a $k$-permutation as an arrangement of $k$ of the set's elements in a row. The number of $k$-permutations of an $n$-element is denoted
+\begin{equation*}
+    P(n,k)= n(n-1)(n-2)\cdots (n-k+1).
+\end{equation*}
+\end{definition}
+
+This equation simply implies that you take the factorial of $n$ and cut it off once the number of times you multiplied it reaches $k$ (the number of tasks).
+
+\smallskip
+
+This is used in the cases when you are taking \emph{order} into account, i.e., \textbf{permutations.} 
+
+\smallskip
+
+\noindent Let $A = \{a,b,c,d\}$. Let's say we wanted to know how many options we would have if we wanted to produce a \emph{list} of cardinality 2. Then, we would have $n=|A|$, so $n = 4$, and $k=2$, giving us
+\begin{equation*}
+    \underbrace{4}_\text{1st Choice}\times \underbrace{(4-2+1)}_\text{2nd Choice} = 12.
+\end{equation*}
+
+\smallskip
+
+The permutations this would produce would be:
+\begin{displaymath}
+\begin{array}{ccc}
+    (a,b) &(a,d) &(c,d)\\
+    (b,a) &(d,a) &(d,c)\\
+    (a,c) &(b,d) &(b,c)\\
+    (c,a) &(d,b) &(c,b)\\
+\end{array}
+\end{displaymath}
+
+\subsubsection{Repeats Not Allowed, Order Doesn't Matter}
+
+When we say "\emph{order doesn't matter}", what we mean is \emph{order is not taken into consideration}. So $\{a,b\} = \{b,a\}$. So we are not looking for the number of \emph{permutations} that can be achieved, but the number of \textbf{combinations} that can.
+
+\smallskip
+
+\begin{definition}
+The numbers $\binom{n}{k}$, with $0 \leq k \leq n$, are called the \textbf{binomial coefficients}, read "\emph{n choose k}," and defined by the formula
+\begin{equation*}
+    \binom{n}{k}=\frac{n!}{k!(n-k)!}.
+\end{equation*}
+The \emph{binomial coefficient} can also be interpreted as \emph{the nnumber of combinations of k elements taken from a set of n, when order does not matter.}\\
+
+An equivalent formula that can be used for binomial coefficients is:
+\begin{equation*}
+    \binom{n}{k}= \frac{n(n-1)(n-2)\cdots(n-k+1)}{k!}
+\end{equation*}
+\end{definition}
+
+\begin{theorem}
+\textbf{Binomial Theorem}. For any integer $n>0$, and for any real numbers $x$ and $y$, with $(x,y) \neq (0,0) if n=0),$ we have that
+\begin{equation*}
+    (x+y)^n = \sum_{k=0}^\infty \binom{n}{k} x^{n-k}y^k.
+\end{equation*}
+\end{theorem}
+
+The \emph{Binomial Theorem} above, along with \emph{Pascal's Triangle} will be addressed later.
+
+\smallskip
+
+\subsubsection{Repeats are Allowed, Order Matters}
+
+\smallskip
+
+Suppose that repeats are allowed and order matters. If we are selecting elements from a set of cardinality $n$ then we have $n$ choices for the first selection, $n$ choices for the second selection, and so on. Therefore, we have $n$ choices \emph{ for all} $k$ of our selections. Therefore, if order of selection matters and repeated selections are allowed, then the number of ways of choosing $k$ objects from a collection of $n$ is
+\begin{equation*}
+    \underbrace{n \cdot n \cdots n}_{k\text{-times}} = n^k.
+\end{equation*}
+This is valid even if $k$ is larger than $n$, due to the fact that repeats are being allowed.
+
+\subsubsection{Repeated Selections are Allowed, Order Doesn't Matter}
+
+We will be breaking these up into cases. Each case will consist of some form of the cases stated above. Good luck.
+
+\bigskip
+
+\subsection{The Multiplication Principle}
+
+\smallskip
+
+Many practical problems involve counting the number of possible outcomes that satisfy some condition or property.
+
+Suppose we make a list of length three having the property that the first entry must be an element of the set $\{a,b,c\}$, the second entry must be in $\{5,7\}$, and the thrid tnry must be in $\{a,x\}$. How many lists are there all together?
+
+The choices for the first entry are $a,b,$ or $c$, and the start of the diagram branches out in three directions, one for each choice. Once this choice is made there are two choices (5 or 7) for the second entry, which yields two more branches for each choice, from each of the three choices from the first entry. This pattern continues for the choice for the third entry, which is either $a$ or $x$. So in the diagram, there are $3 \cdot 2 \cdot 2 = 12$ paths from left to right. 
+
+\begin{center}
+\includegraphics{MultiplicationPrinciple.PNG}
+\end{center}
+
+\begin{definition}
+\textbf{Multiplication Principle}. Suppose in making a list of length $n$ there are $a_1$ possible choices for the first entry, $a_2$ possible choices for the second entry, $a_3$ possible choices for the third entry, and so on. Then the total number of different lists that can be made this way is the product $a_1 \cdot a_2 \cdot a_3 \cdots a_n$.
+\end{definition}
+
+\subsection{The Addition and Subtraction Principles}
+
+\smallskip
+
+\subsubsection{The Addition Principle}
+
+\smallskip
+
+The \emph{addition principle} simply states that if a set can be broken into pieces, then the size of the set is the sum of the sizes of the pieces. \emph{Note:} See pairwise disjoint/partition properties.
+
+\begin{definition}
+\textbf{(Addition Principle)} Suppose a finite set $X$ can be decomposed as a union $X = X_1 \cup X_2 \cup \cdots \cup X_n,$ where $X_i \cap X_j = \emptyset$ wherever $i \neq j.$ Then $|X|=|X_1|+|X_2|+ \cdots +|X_n|$. The figure below gives an idea of what this may look like.
+\begin{center}
+\includegraphics{AdditionPrinciple.PNG}
+\end{center}
+\end{definition}
+
+We use the addition principle when we need to count the things in some set $X$. If we can find a way to break $X$ up as $X = X_1 \cup X_2 \cup \cdots X_n$, where each $X_i$ is easier to count than $X$, then the addition principle gives an answer of $|X|=|X_1|+|X_2|+|X_3|+ \cdots |X_n|$.
+
+\textcolor{red}{but} for this to work, the intersection of \emph{any} two pieces $X_i$ must be $\emptyset$, otherwise you run into the issue of double-counting. (This will be detailed later in the \emph{Inclusion-Exclusion Principle.})
+
+\smallskip
+
+\subsubsection{The Subtraction Principle}
+
+\smallskip
+
+\begin{definition}
+If $X$ is a subset of a finite set $U$, then $|X^c| = |U|-|X|$. In other words, if $X \subseteq U$, then $|U-X|=|U|-|X|$.
+\end{definition}
+
+The subtraction principle is used in situations where it is easier to count the things in some set $U$ that we wish to \emph{exclude} from consideration than it is to count those things that are included. 
+
+\smallskip
+
+\subsection{The Inclusion-Exclusion Principle}
+
+\smallskip
+
+Suppose we have two finite sets, $A$ and $B$, and we are interested in determining the number of elements in their union $A \cup B$. From the \emph{addition principle}, If $A$ and $B$ are disjoint then $A \cap B = \emptyset$, and we have that 
+\begin{equation*}
+|A \dot{\cup} B| = |A|+|B|.
+\end{equation*}
+
+This extends to finite unions of \emph{pairwise disjoint} sets. If $A_1,A_2,\hdots A_n$ are finite sets \emph{which are pairwise disjoint}, then
+\begin{equation*}
+    \left| \dot{\bigcup\limits_{1 \leq i \leq n}}A_i \right| = |A_1|+|A_2|+\cdots+|A_n|.
+\end{equation*}
+
+What happens if $A$ and $B$ are not disjoint? Well, then there exists elements that are in $A$ and in $B$, which then will be counted \emph{twice}, resulting in an incorrect sum, since there are elements that are counted twice. So \emph{Note!} $|A \cup B| \neq |A|+|B|$ if $A$ and $B$ are \emph{NOT} disjoint.
+
+\smallskip
+
+To account for this, we subtract $|A \cup B|$ to obtain the formula
+\begin{equation*}
+    |A \cup B| = |A|+|B|-|A \cap B|.
+\end{equation*}
+
+Now suppose that we have three finite sets, $A_1, A_2,$ and $A_3$, and wish to obtain the number of elements in $A_1 \cup A_2 \cup A_3$. Then, we will use
+\begin{align*}
+&|A_1|+|A_2|+|A_3|\\
+   &= |A_1|+|A_2|+|A_3|-|A_1 \cap A_2|-|A_1 \cap A_3|-|A_2 \cap A_3|+|A_1 \cap A_2 \cap A_3|.
+\end{align*}
+
+\noindent How this logic works:
+\begin{displaymath}
+\begin{array}{ll}
+    |A_1|+|A_2|+|A_3|\\
+   =|A_1|+|A_2|+|A_3| & \text{Adds the initial elements of the sets together} \\
+    -|A_1 \cap A_2|-|A_1 \cap A_3|-|A_2 \cap A_3| & \text{Subtracts elements in intersection of individual sets}\\
+    +|A_1 \cap A_2 \cap A_3|. & \text{Adds back elements of the \emph{family's} intersection}
+\end{array}
+\end{displaymath}
+
+\smallskip
+
+\begin{theorem}
+\textbf{(Inclusion-Exclusion Principle)} If $A_1,A_2,\hdots,A_n$ are finite sets, then
+\begin{align*}
+    \left| \bigcup\limits_{1 \leq i \leq n}A_i \right| &= \sum_{1 \leq i \leq n}|A_i|\\
+    &-  \sum_{1 \leq i \leq j \leq n}|A_i \cap A_j|\\
+    &+  \sum_{1 \leq i \leq j \leq n}|A_i \cap A_j \cap A_k|\\
+    &- \cdots\\
+    &+ (-1)^{n-1}|A_1\cap A_2 \cap \cdots \cap A_n|.
+\end{align*}
+\end{theorem}
+
+\smallskip
+
+\subsection{Countable vs. Uncountable}
+
+\smallskip
+
+Sample spaces can be either \emph{countable} or \emph{uncountable}; if the elements can be put into 1-1 correspondence with a subset of the integers ($\mathbb{Z}$), the sample space is countable. Also, if the sample space contains only a finite number of elements, it is countable.
+
+This implies that sample spaces which consist of real numbers ($ \mathbb{R}$) are not countable, since the real-number system cannot be put into 1-1 correspondence with the integers.
+
+\bigskip
+
+\section{Mathematical Induction}
+
+\subsection{Principle of Mathematical Induction}
+
+\subsection{Principle of Complete Induction}
+
+\newpage
+
+\section{Relations}
+
+\begin{definition}
+A \textbf{relation} on a set $A$ is a subset $R \subseteq A \times A$. The statement claiming that elements are part of a relation is shown as $(x,y)\in R$ and is abbreviated $x\mathrel{R}y$. \\
+Note: The relation is another set, (in fact, it's a subset of the two sets it is related to). 
+\end{definition}
+\smallskip
+Since relations from set $A$ to set $B$ are subsets of $A \times B$, the union and intersection are also relations from $A$ to $B$.
+
+\begin{definition}
+The \textbf{domain} of the relation $R$ from $A$ to $B$ is the set\\ Dom$(R)$ $= \{x \in A:$ there exists $y \in B$ such that $x \mathrel{R} y \}$.\\
+
+\noindent The \textbf{range} of the relation $R$ is the set\\ Rng $(R)$ $= \{y\in B:$ there exists $x\in A$ such that $x\mathrel{R}y\}.$
+\newline
+\newline
+\noindent Therefore by definition, the Dom$(R) \subseteq A$ and the Rng $(R) \subseteq B$.
+\end{definition}
+
+\begin{definition}
+For any set $A$, the relation $I_A = \{(x,x):x\in A\}$ is called the \textbf{identity relation on $A$}.
+\end{definition}
+
+\begin{definition}
+If $R$ is a relation from $A$ to $B$, then the \textbf{inverse} of $R$ is the relation
+\begin{equation*}
+    R^{-1}=\{(y,x):(x,y)\in R\}.
+\end{equation*}
+\end{definition}
+
+\begin{theorem}
+Let $R$ be a relation from $A$ to $B$.
+\begin{align*}
+    &\text{Dom}(R^{-1})=\text{Rng }(R)\\
+    &\text{Rng}(R^{-1})=\text{Dom}(R)
+\end{align*}
+\end{theorem}
+
+\begin{definition}
+Let $R$ be a relation from $A$ to $B$, and let $S$ be a relation from $B$ to $C$. The \textbf{composite} of $R$ and $S$ is
+\begin{equation*}
+    S \circ R = \{(a,c): \exists b \in B \text{ s.t. } (a,b) \in R \text{ and } (b,c) \in S\}.
+\end{equation*}
+\end{definition}
+
+
+\section{Functions}
+
+
+
+\newpage
+
+\addappheadtotoc
+
+\appendixpage
+
+\bigskip
+
+\begin{subappendices}
+\subsection{The Division Algorithm and B\'ezout's Identity}
+
+\textcolor{red}{Axiom} \emph{The Well-Ordering Principle (WOP)}: Every non-empty subset of $\mathbb{N}$ has a smallest element.
+
+\begin{theorem}
+\textbf{The Division Algorithm}. Given two integers $a$ and $b$ with $b>0$, there exists unique integers $q$ and $r$ such that
+\begin{equation*}
+    a = qb + r, \text{ }0 \leq r < b
+\end{equation*}
+where a is the divisor, q is the quotient, and r is the remainder.
+\end{theorem}
+
+\smallskip
+
+\begin{definition}
+Let $a,b,c$ and $d$ be nonzero integers.
+\smallskip
+
+We say $c$ is a \textbf{common divisor} iff
+$c|a \text{ and } c|b$
+
+\smallskip
+
+We say $d$ is the \textbf{greatest common divisor (gcd)} of $a$ and $b$ and write $d=\gcd (a,b)$ iff
+
+\smallskip
+
+\begin{tabular}{l}
+     \textbf{a.} $d$ is a common divisor of $a$ and $b$.  \\
+     \textbf{b.} every common divisor $c$ of $a$ and $b$ is less than or equal to $d$.
+\end{tabular}
+
+\smallskip
+
+\emph{Note:} The gcd is always a positive number.
+\end{definition}
+
+\smallskip
+
+\begin{definition}
+An integer of the form $ax + by$, for integers $x$ and $y$ is called a \textbf{linear combination} of $a$ and $b$.
+\end{definition}
+
+\smallskip
+
+\begin{theorem}
+\textcolor{red}{B\'ezout's Identity.} Let $a$ and $b$ be nonzero integers. The $\gcd(a,b)$ is the \emph{smallest} positive \emph{linear combination} of $a$ and $b$.
+\end{theorem}
+
+We use B\'ezout's Identity to derive the following results regarding divisibility.
+
+\smallskip
+
+\begin{theorem}
+\textcolor{red}{Euclid's Lemma} If $a|bc$ with $\gcd(a,b)=1$, then $a|c$. Colloquially: Let $p$ be a prime number, and let a and b be integers, if $p|ab$ then $p|a$ or $p|b$.
+\end{theorem}
+
+\begin{proof}
+Since $\gcd(a,b)=1$ there exists integers $m$ and $n$ such that $am+bn+1$. Multiplying $c$ on both sides, we get $c=acm+bcn$. Since $a|bc$ and $a|acm$, we get $a|c$.
+\end{proof}
+
+\smallskip
+
+\begin{theorem}
+If $a|c$ and $b|c$ with $\gcd(a,b)=1$, then $ab|c$.
+\end{theorem}
+
+\begin{proof}
+Since $\gcd(a,b)=1$, there exist integers $m$ and $n$ such that $am+bn=1$. Multiplying $c$ on both sides, we get $c=c(am+bn)=acm+bcn$. Now since $b|c$ so $ab|ac$ and similarly $ab|bc$, so $ab|c$.
+\end{proof}
+
+\bigskip
+
+
+\subsection{Congruence}
+
+
+
+
+\end{subappendices}
+
+
+
+
+
+
+
+
+\end{document}
